@@ -21,6 +21,8 @@ class CategoryResource extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'products' => ProductResource::collection($this->products),
+            'products_images' => $this->whenLoaded('productsImages')
         ];
     }
 }

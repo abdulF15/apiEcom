@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
 Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories/{slug}', [CategoryController::class, 'show']);
+
 Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{slug}', [ProductController::class, 'show']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     // profile

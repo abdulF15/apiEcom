@@ -27,6 +27,24 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
+    public function show($slug)
+    {
+        try {
+            $product = Product::with('category:id,title,slug,image', 'productImages:product_id,image')->where('slug', $slug)->first();
+            return response()->json([
+                'success' => true,
+                'message' => 'Product retrieved successfully',
+                'data' => new ProductResource($product)
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         try {

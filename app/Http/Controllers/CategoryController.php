@@ -25,6 +25,24 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+
+    public function show($slug)
+    {
+        try {
+            $category = Category::with('products', 'products.productImages:product_id,image')->where('slug', $slug)->first();
+            return response()->json([
+                'success' => true,
+                'message' => 'Category retrieved successfully',
+                'data' => new CategoryResource($category)
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         try {
